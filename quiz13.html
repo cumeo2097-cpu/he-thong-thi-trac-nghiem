@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8"><title>Quiz 13</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f4f7f6; padding: 20px; }
+        .container { max-width: 800px; background: #fff; margin: auto; padding: 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .q-title { font-size: 18px; font-weight: bold; color: #0056b3; margin: 20px 0 10px 0; line-height: 1.4; }
+        label { display: block; padding: 12px; background: #f8f9fa; margin-bottom: 8px; border-radius: 5px; cursor: pointer; border: 1px solid #dee2e6; line-height: 1.4; }
+        label:hover { background: #e2e6ea; }
+        .submit-btn { background: #28a745; color: white; border: none; padding: 15px; width: 100%; font-size: 18px; border-radius: 5px; cursor: pointer; margin-top: 20px; font-weight: bold; }
+        #result { font-size: 24px; font-weight: bold; color: red; text-align: center; margin-top: 20px; }
+        a { display: block; text-align: center; margin-top: 20px; color: #0056b3; text-decoration: none; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 style="text-align:center; border-bottom: 2px solid #0056b3; padding-bottom: 10px;">ĐỀ THI - QUIZ 13 (BỔ SUNG 4)</h2>
+        <div id="quiz-content"></div>
+        <button class="submit-btn" onclick="chamDiem()">NỘP BÀI</button>
+        <div id="result"></div>
+        <a href="menu.html">← Quay lại Menu</a>
+    </div>
+
+    <script>
+        const quiz13 = [
+            {q: "Câu 1: Hành vi nào của công dân là biểu hiện của quyền tự do ngôn luận?", o: ["A. Muốn viết gì gửi đăng báo cũng được", "B. Được bày tỏ quan điểm của mình ở mọi nơi, mọi lúc", "C. Được bày tỏ quan điểm về xây dựng chương trình ngoại khoá của nhóm", "D. Muốn nói gì và làm gì cũng được"], a: 2},
+            {q: "Câu 2: Nước ta đứng trước những thách thức gì trong việc mở rộng quan hệ hợp tác quốc tế?", o: ["A. Phân hoá giàu nghèo, dịch bệnh, tội phạm xuyên quốc gia", "B. Chịu sức ép cạnh tranh gay gắt", "C. Những biến động trên thị trường quốc tế tác động đến thị trường trong nước", "D. Tất cả đều đúng"], a: 3},
+            {q: "Câu 3: Trong công cuộc đổi mới đất nước, đường lối và chủ trương của Đảng, Nhà nước về đại đoàn kết dân tộc được thể hiện như thế nào?", o: ["A. Bằng cách tăng cường các hoạt động kinh tế", "B. Qua việc hoàn thiện và thể chế hoá bằng pháp luật", "C. Thông qua việc mở rộng quan hệ quốc tế", "D. Qua việc hoàn thiện và thể chế bằng các chính sách, pháp luật"], a: 3},
+            {q: "Câu 4: Những tiêu chí tu dưỡng rèn luyện để học sinh, sinh viên phấn đấu trở thành người công dân tốt?", o: ["A. Thực hiện quyền và nghĩa vụ công dân", "B. Tu dưỡng, rèn luyện về đạo đức, lối sống", "C. Có ý thức công dân", "D. Cả 3 đáp án trên"], a: 3},
+            {q: "Câu 5: “Điểm khác biệt căn bản giữa xã hội loài người với xã hội loài vật là ở chỗ: Loài vật may mắn lắm chỉ hái lượm trong khi con người lại …. “", o: ["A. Sản xuất/ Ph.Ăngghen", "B. Tiến hành lao động/ C.Mác", "C. Tư duy/ V.I Lênin", "D. Biết sáng tạo/ Ph.Ăngghen"], a: 0},
+            {q: "Câu 6: Điều gì thể hiện rõ nét nhất sức mạnh của khối đại đoàn kết dân tộc trong giai đoạn hiện nay?", o: ["A. Sự phát triển kinh tế - xã hội nhanh chóng", "B. Sự tham gia của mọi tầng lớp nhân dân trong các hoạt động xã hội", "C. Sự lãnh đạo của Đảng và Nhà nước trong mọi lĩnh vực", "D. Sự đoàn kết trong việc phòng, chống thiên tai và dịch bệnh"], a: 3},
+            {q: "Câu 7: Chức năng giáo dục của văn hoá thể hiện qua nhận thức, tư tưởng, tình cảm và hành động? Nhận định này đúng hay sai?", o: ["A. Đúng", "B. Sai"], a: 0},
+            {q: "Câu 8: Tiếp tục xây dựng, hoàn thiện nhà nước pháp quyền XHCN do Đảng lãnh đạo là nhiệm vụ ………. của đổi mới của hệ thống chính trị?", o: ["A. Nhiệm vụ ưu tiên", "B. Nhiệm vụ trước mắt", "C. Nhiệm vụ quan trọng", "D. Nhiệm vụ trọng tâm"], a: 3},
+            {q: "Câu 9: Tiền tệ có mấy chức năng?", o: ["A. Năm chức năng", "B. Bốn chức năng", "C. Ba chức năng", "D. Hai chức năng"], a: 0},
+            {q: "Câu 10: Bản chất của nhà nước CHXHCN Việt Nam được thể hiện qua giai cấp nào?", o: ["A. Nông dân", "B. Công nhân", "C. Bị trị", "D. Thống trị"], a: 1},
+            {q: "Câu 11: Sức mạnh đại đoàn kết dân tộc đã được phát huy như thế nào trong cuộc chiến chống đại dịch COVID-19?", o: ["A. Nhờ sự huy động kịp thời và sự vào cuộc quyết liệt của cả hệ thống chính trị", "B. Do sự đồng thuận của các tầng lớp nhân dân", "C. Bằng việc thực hiện công tác phòng, chống dịch ở quy mô chưa có tiền lệ", "D. Tất cả các phương án trên"], a: 3},
+            {q: "Câu 12: Điền từ còn thiếu vào chỗ trống “Tăng cường quốc phòng, giữ vững an ninh quốc gia, trật tự, an toàn xã hội là nhiệm vụ trọng yếu, thường xuyên của ……. “", o: ["A. Cả hệ thống chính trị", "B. Mọi tầng lớp nhân dân", "C. Đảng, nhà nước và toàn dân", "D. Nhà nước và toàn dân"], a: 2}
+        ];
+
+        let html = '';
+        quiz13.forEach((q, i) => {
+            html += `<div class="q-title">${q.q}</div>`;
+            q.o.forEach((opt, j) => {
+                html += `<label><input type="radio" name="q${i}" value="${j}"> ${opt}</label>`;
+            });
+        });
+        document.getElementById('quiz-content').innerHTML = html;
+
+        function chamDiem() {
+            let score = 0;
+            quiz13.forEach((q, i) => {
+                let checked = document.querySelector(`input[name="q${i}"]:checked`);
+                if(checked && parseInt(checked.value) === q.a) score++;
+            });
+            document.getElementById('result').innerText = `Kết quả: ${score} / 12 câu`;
+            window.scrollTo(0, document.body.scrollHeight);
+        }
+    </script>
+</body>
+</html>

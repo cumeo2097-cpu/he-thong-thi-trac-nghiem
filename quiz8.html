@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8"><title>Quiz 8</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f4f7f6; padding: 20px; }
+        .container { max-width: 800px; background: #fff; margin: auto; padding: 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .q-title { font-size: 18px; font-weight: bold; color: #0056b3; margin: 20px 0 10px 0; line-height: 1.4; }
+        label { display: block; padding: 12px; background: #f8f9fa; margin-bottom: 8px; border-radius: 5px; cursor: pointer; border: 1px solid #dee2e6; line-height: 1.4; }
+        label:hover { background: #e2e6ea; }
+        .submit-btn { background: #28a745; color: white; border: none; padding: 15px; width: 100%; font-size: 18px; border-radius: 5px; cursor: pointer; margin-top: 20px; font-weight: bold; }
+        #result { font-size: 24px; font-weight: bold; color: red; text-align: center; margin-top: 20px; }
+        a { display: block; text-align: center; margin-top: 20px; color: #0056b3; text-decoration: none; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 style="text-align:center; border-bottom: 2px solid #0056b3; padding-bottom: 10px;">ĐỀ THI - QUIZ 8</h2>
+        <div id="quiz-content"></div>
+        <button class="submit-btn" onclick="chamDiem()">NỘP BÀI</button>
+        <div id="result"></div>
+        <a href="menu.html">← Quay lại Menu</a>
+    </div>
+
+    <script>
+        const quiz8 = [
+            {q: "Câu 1: Mặt trận Tổ quốc Việt Nam đã thực hiện nhiệm vụ tuyên truyền và vận động như thế nào để tập hợp toàn dân?", o: ["A. Phát động các chiến dịch truyền thông", "B. Thực hiện tốt nhiệm vụ tuyên truyền, vận động", "C. Tổ chức các sự kiện cộng đồng", "D. Tất cả các phương án trên"], a: 3},
+            {q: "Câu 2: Chính sách nhất quán của nhà nước xã hội chủ nghĩa đối với tôn giáo là gì?", o: ["A. Tôn trọng và bảo đảm quyền tự do tín ngưỡng của mọi công dân", "B. Tôn trọng và bảo đảm quyền tự do không tín ngưỡng của mọi công dân", "C. Tôn trọng và bảo đảm quyền tự do tín ngưỡng và không tín ngưỡng của mọi công dân", "D. Tôn trọng và cho phép mọi tôn giáo hoạt động"], a: 2},
+            {q: "Câu 3: Sức mạnh của khối đại đoàn kết toàn dân tộc có vai trò như thế nào trong việc bảo vệ chủ quyền quốc gia?", o: ["A. Là nền tảng để xây dựng lực lượng quốc phòng mạnh mẽ", "B. Tất cả các phương án trên", "C. Tạo động lực cho sự phát triển bền vững của đất nước", "D. Góp phần vào việc giữ gìn hòa bình và an ninh khu vực"], a: 1},
+            {q: "Câu 4: Cây đa Tân Trào ở đâu?", o: ["A. Cao Bằng", "B. Lào Cai", "C. Bắc Kạn", "D. Tuyên Quang"], a: 3},
+            {q: "Câu 5: Trong thời kỳ đổi mới, sức mạnh khối đại đoàn kết toàn dân tộc đã được phát huy thông qua cơ chế nào?", o: ["A. Tất cả các phương án trên", "B. Cơ chế dân chủ cơ sở", "C. Cơ chế đối thoại và tiếp thu ý kiến nhân dân", "D. Cơ chế phối hợp giữa các tổ chức xã hội"], a: 0},
+            {q: "Câu 6: Trong công cuộc đổi mới đất nước, đường lối và chủ trương của Đảng, Nhà nước về đại đoàn kết dân tộc được thể hiện như thế nào?", o: ["A. Qua việc hoàn thiện và thể chế hóa bằng pháp luật", "B. Thông qua việc mở rộng quan hệ quốc tế", "C. Bằng cách tăng cường các hoạt động kinh tế", "D. Qua việc hoàn thiện và thể chế hóa bằng các chính sách, pháp luật"], a: 3},
+            {q: "Câu 7: Thành Nhà Hồ ở đâu?", o: ["A. Nghệ An", "B. Thanh Hóa", "C. Hà Tĩnh", "D. Ninh Bình"], a: 1},
+            {q: "Câu 8: Tư tưởng cơ bản và xuyên suốt trong cuộc đời hoạt động cách mạng của Chủ tịch Hồ Chí Minh về đại đoàn kết dân tộc là gì?", o: ["A. Đoàn kết là yếu tố quyết định thắng lợi", "B. Đoàn kết là lực lượng vô địch để khắc phục mọi khó khăn, giành lấy thắng lợi", "C. Đoàn kết là sức mạnh tinh thần", "D. Đoàn kết là lực lượng vô địch"], a: 1},
+            {q: "Câu 9: Việt Nam là một quốc gia có bao nhiêu thành phần dân tộc?", o: ["A. 52", "B. 53", "C. 55", "D. 54"], a: 3},
+            {q: "Câu 10: Phương án nào sau đây KHÔNG đúng?", o: ["A. Cần cù vốn là bản chất của lao động nói chung", "B. Với người Việt Nam, lao động là truyền thống nổi bật", "C. Lao động sáng tạo với tinh thần lạc quan yêu đời là một nét đặc sắc thể hiện bản lĩnh, trí tuệ...", "D. Lao động sáng tạo với tinh thần lạc quan... là một nét đặc sắc thể hiện bản lĩnh của tâm hồn Việt Nam"], a: 3},
+            {q: "Câu 11: Xây dựng Nhà nước pháp quyền ở nước ta hiện nay phải xuất phát từ căn cứ cơ bản nào?", o: ["A. Nắm vững nguyên lý cơ bản của chủ nghĩa Mác-Lênin và tư tưởng Hồ Chí Minh...", "B. Xây dựng và phát triển dân chủ xã hội chủ nghĩa", "C. Tăng cường học tập kinh nghiệm về xây dựng nhà nước Pháp quyền", "D. Xây dựng sự vững mạnh của hiến pháp và pháp luật"], a: 0},
+            {q: "Câu 12: Dòng sông nào đã đi vào lịch sử dân tộc với cuộc kháng chiến chống quân Nam Hán?", o: ["A. Sông Đà", "B. Sông Cửu Long", "C. Sông Bạch Đằng", "D. Sông Hồng"], a: 2},
+            {q: "Câu 13: Vai trò của thanh niên trong việc xây dựng khối đại đoàn kết toàn dân tộc được thể hiện như thế nào?", o: ["A. Thanh niên tham gia tích cực trong công tác xã hội", "B. Thanh niên là nguồn lực quan trọng trong việc phát triển kinh tế", "C. Tất cả các phương án trên", "D. Thanh niên là lực lượng xung kích trong các hoạt động cộng đồng"], a: 2},
+            {q: "Câu 14: Một trong những biện pháp để xây dựng Nhà nước pháp quyền trong hệ thống chính trị là?", o: ["A. Hoàn thiện hệ thống pháp luật và cơ quan lập pháp Việt Nam", "B. Xây dựng một bộ máy đàn áp hữu hiệu", "C. Kêu gọi nhân dân chấp hành đúng pháp luật", "D. Tham gia vào luật quốc tế và công ước của thế giới"], a: 0},
+            {q: "Câu 15: Giai cấp công nhân Việt Nam có sứ mệnh lịch sử to lớn là?", o: ["A. Là lực lượng đấu tranh với giai cấp tư sản...; tiên phong xây dựng CNXH", "B. Lãnh đạo cách mạng; đại diện PSSX tiên tiến...; đi đầu trong sự nghiệp CNH-HĐH", "C. Là giai cấp đại diện cho phương thức sản xuất tiên tiến...", "D. Là giai cấp đi đầu trong sự nghiệp công nghiệp hóa, hiện đại hóa đất nước"], a: 1}
+        ];
+
+        let html = '';
+        quiz8.forEach((q, i) => {
+            html += `<div class="q-title">${q.q}</div>`;
+            q.o.forEach((opt, j) => {
+                html += `<label><input type="radio" name="q${i}" value="${j}"> ${opt}</label>`;
+            });
+        });
+        document.getElementById('quiz-content').innerHTML = html;
+
+        function chamDiem() {
+            let score = 0;
+            quiz8.forEach((q, i) => {
+                let checked = document.querySelector(`input[name="q${i}"]:checked`);
+                if(checked && parseInt(checked.value) === q.a) score++;
+            });
+            document.getElementById('result').innerText = `Kết quả: ${score} / 15 câu`;
+            window.scrollTo(0, document.body.scrollHeight);
+        }
+    </script>
+</body>
+</html>

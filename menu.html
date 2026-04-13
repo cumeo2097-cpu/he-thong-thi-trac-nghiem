@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Hệ Thống Thi Trắc Nghiệm</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            background: #e9ecef; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            margin: 0; 
+            padding: 20px; 
+            box-sizing: border-box; 
+        }
+        .box { 
+            background: white; 
+            padding: 30px; 
+            border-radius: 10px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
+            text-align: center; 
+            width: 100%; 
+            max-width: 400px; 
+        }
+        /* Thêm cuộn dọc cho menu tránh bị tràn màn hình khi có quá nhiều đề */
+        #menu-box { 
+            max-height: 85vh; 
+            overflow-y: auto; 
+        }
+        input { 
+            padding: 12px; 
+            width: 100%; 
+            margin-bottom: 20px; 
+            border: 1px solid #ccc; 
+            border-radius: 5px; 
+            font-size: 16px; 
+            box-sizing: border-box; 
+        }
+        button { 
+            background: #0056b3; 
+            color: white; 
+            border: none; 
+            padding: 12px 20px; 
+            border-radius: 5px; 
+            font-size: 16px; 
+            cursor: pointer; 
+            width: 100%; 
+            font-weight: bold; 
+            transition: 0.3s;
+        }
+        button:hover { background: #004494; }
+        .btn { 
+            display: block; 
+            background: #28a745; 
+            color: white; 
+            padding: 12px; 
+            text-decoration: none; 
+            border-radius: 5px; 
+            margin-bottom: 10px; 
+            font-weight: bold; 
+            transition: 0.3s; 
+        }
+        .btn:hover { opacity: 0.9; transform: translateY(-2px); }
+        .hidden { display: none !important; }
+        
+        /* Tùy chỉnh thanh cuộn cho đẹp */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 5px; }
+        ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 5px; }
+        ::-webkit-scrollbar-thumb:hover { background: #aaa; }
+    </style>
+</head>
+<body>
+    
+    <div class="box" id="login-box">
+        <h2 style="color:#0056b3; margin-top: 0;">ĐĂNG NHẬP THI</h2>
+        <input type="password" id="pass" placeholder="Nhập mật khẩu (123456)">
+        <button onclick="checkPass()">Vào Hệ Thống</button>
+        <p id="err" style="color:red; margin-bottom: 0;" class="hidden">Mật khẩu không đúng!</p>
+    </div>
+
+    <div class="box hidden" id="menu-box">
+        <h2 style="color:#0056b3; margin-top: 0;">CHỌN ĐỀ THI</h2>
+        
+        <a href="quiz1.html" class="btn">Làm Đề - Quiz 1</a>
+        <a href="quiz2.html" class="btn">Làm Đề - Quiz 2</a>
+        <a href="quiz3.html" class="btn">Làm Đề - Quiz 3</a>
+        <a href="quiz4.html" class="btn">Làm Đề - Quiz 4</a>
+        <a href="quiz5.html" class="btn">Làm Đề - Quiz 5</a>
+        <a href="quiz6.html" class="btn">Làm Đề - Quiz 6</a>
+        <a href="quiz7.html" class="btn">Làm Đề - Quiz 7</a>
+        <a href="quiz8.html" class="btn">Làm Đề - Quiz 8</a>
+        <a href="quiz9.html" class="btn">Làm Đề - Quiz 9</a>
+        
+        <h3 style="color:#28a745; margin: 20px 0 10px 0; border-top: 1px solid #eee; padding-top: 15px;">PHẦN BỔ SUNG</h3>
+        
+        <a href="quiz10.html" class="btn" style="background:#17a2b8;">Làm Đề - Quiz 10 (Bổ sung 1)</a>
+        <a href="quiz11.html" class="btn" style="background:#17a2b8;">Làm Đề - Quiz 11 (Bổ sung 2)</a>
+        <a href="quiz12.html" class="btn" style="background:#17a2b8;">Làm Đề - Quiz 12 (Bổ sung 3)</a>
+        <a href="quiz13.html" class="btn" style="background:#17a2b8;">Làm Đề - Quiz 13 (Bổ sung 4)</a>
+    </div>
+
+    <script>
+        // Tính năng: Nhấn phím Enter để đăng nhập thay vì phải click chuột
+        document.getElementById('pass').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                checkPass();
+            }
+        });
+
+        function checkPass() {
+            if(document.getElementById('pass').value === '123456') {
+                document.getElementById('login-box').classList.add('hidden');
+                document.getElementById('menu-box').classList.remove('hidden');
+            } else {
+                document.getElementById('err').classList.remove('hidden');
+            }
+        }
+    </script>
+</body>
+</html>

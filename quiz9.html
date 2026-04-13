@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8"><title>Quiz 9</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f4f7f6; padding: 20px; }
+        .container { max-width: 800px; background: #fff; margin: auto; padding: 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .q-title { font-size: 18px; font-weight: bold; color: #0056b3; margin: 20px 0 10px 0; line-height: 1.4; }
+        label { display: block; padding: 12px; background: #f8f9fa; margin-bottom: 8px; border-radius: 5px; cursor: pointer; border: 1px solid #dee2e6; line-height: 1.4; }
+        label:hover { background: #e2e6ea; }
+        .submit-btn { background: #28a745; color: white; border: none; padding: 15px; width: 100%; font-size: 18px; border-radius: 5px; cursor: pointer; margin-top: 20px; font-weight: bold; }
+        #result { font-size: 24px; font-weight: bold; color: red; text-align: center; margin-top: 20px; }
+        a { display: block; text-align: center; margin-top: 20px; color: #0056b3; text-decoration: none; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 style="text-align:center; border-bottom: 2px solid #0056b3; padding-bottom: 10px;">ĐỀ THI - QUIZ 9</h2>
+        <div id="quiz-content"></div>
+        <button class="submit-btn" onclick="chamDiem()">NỘP BÀI</button>
+        <div id="result"></div>
+        <a href="menu.html">← Quay lại Menu</a>
+    </div>
+
+    <script>
+        const quiz9 = [
+            {q: "Câu 1: Người lao động có nghĩa vụ?", o: ["A. Làm việc trong điều kiện không bảo đảm an toàn do đặc thù công việc.", "B. Tuân theo mọi sự phân công, điều động của cấp trên.", "C. Chấp hành kỉ luật lao động, nội quy lao động.", "D. Không được nghỉ chế độ khi cơ sở lao động đang nhiều việc."], a: 2},
+            {q: "Câu 2: Những tiêu chí tu dưỡng rèn luyện để học sinh, sinh viên phấn đấu để trở thành người công dân tốt?", o: ["A. Có ý thức công dân", "B. Thực hiện tốt quyền và nghĩa vụ công dân", "C. Cả 3 đáp án trên", "D. Tu dưỡng, rèn luyện về đạo đức, lối sống"], a: 2},
+            {q: "Câu 3: Công dân có quyền tham gia quản lý nhà nước và xã hội?", o: ["A. Sai", "B. Đúng"], a: 1},
+            {q: "Câu 4: Công dân được bày tỏ quan điểm của mình về các vấn đề chính trị, kinh tế, văn hóa, xã hội của đất nước thông qua quyền nào dưới đây?", o: ["A. Quyền khiếu nại.", "B. Quyền tự do ngôn luận.", "C. Quyền bầu cử, ứng cử.", "D. Quyền tố cáo."], a: 1},
+            {q: "Câu 5: Những lợi ích cơ bản mà công dân được hưởng, được Nhà nước bảo vệ và đảm bảo theo Hiến pháp, pháp luật là?", o: ["A. Nghĩa vụ của công dân.", "B. Các quyền con người", "C. Nghĩa vụ con người", "D. Quyền cơ bản của công dân."], a: 3},
+            {q: "Câu 6: Hoạt động có mục đích của con người nhằm tạo ra của cải vật chất và các giá trị tinh thần cho xã hội là hoạt động?", o: ["A. Hướng nghiệp.", "B. Trải nghiệm.", "C. Lao động", "D. Dịch vụ."], a: 2},
+            {q: "Câu 7: Đặc điểm của người lao động tốt?", o: ["A. luôn quan tâm đến lợi ích của bản thân mình", "B. Phải có bằng cấp cao", "C. cố mọi cách để tạo ra năng suất lao động cao", "D. có tình yêu yêu nghề, giữ gìn đạo đức nghề nghiệp"], a: 3},
+            {q: "Câu 8: Người nào được hưởng các quyền và phải thực hiện nghĩa vụ công dân theo quy định của pháp luật Việt Nam?", o: ["A. Người có quốc tịch Việt Nam.", "B. Người đang sống và làm việc tại Việt Nam.", "C. Người đã thôi quốc tịch Việt Nam, sinh sống ở nước ngoài.", "D. Người nước ngoài đang sống và làm việc tại Việt Nam."], a: 0},
+            {q: "Câu 9: Công dân đủ 21 tuổi trở lên đều có quyền ứng cử vào Quốc hội, Hội đồng nhân dân theo quy định của pháp luật?", o: ["A. Sai", "B. Đúng"], a: 1},
+            {q: "Câu 10: Ý nào dưới đây không đúng khi nói về nghĩa vụ lao động của công dân?", o: ["A. Lao động là nghĩa vụ thiêng liêng, là nguồn sống...", "B. Lao động là nghĩa vụ của mỗi công dân đối với bản thân...", "C. Mọi người có nghĩa vụ lao động chỉ để kiếm tiền nhằm thoả mãn nhu cầu của bản thân.", "D. Mọi người có nghĩa vụ lao động để góp phần duy trì và phát triển đất nước."], a: 2},
+            {q: "Câu 11: Người lao động tốt?", o: ["A. Là người tạo ra hiệu suất lao động cao", "B. Là người lao động trí óc", "C. Là người lao động chân tay", "D. Người công dân tốt có khả năng lao động tốt"], a: 3},
+            {q: "Câu 12: Nghĩa vụ của người công nhân là ?", o: ["A. Đi làm đúng giờ.", "B. Không đánh nhau cãi nhau trong công ty.", "C. Cả A,B,C.", "D. Chấp hành đúng kỉ cương nề nếp do công ty đặt ra."], a: 2},
+            {q: "Câu 13: Độ tuổi thấp nhất của người lao động là?", o: ["A. 18 tuổi.", "B. Từ đủ 18 tuổi.", "C. 15 tuổi.", "D. Từ đủ 15 tuổi."], a: 3},
+            {q: "Câu 14: Công dân nước Cộng hoà xã hội chủ nghĩa Việt Nam là người có quốc tịch Việt Nam?", o: ["A. Đúng", "B. Sai"], a: 0},
+            {q: "Câu 15: Công dân bình đẳng về quyền và nghĩa vụ như thế nào?", o: ["A. Đều bình đẳng về quyền và làm nghĩa vụ theo quy định của pháp luật.", "B. Đều có nghĩa vụ như nhau.", "C. Đều có quyền như nhau.", "D. Đều có quyền và nghĩa vụ giống nhau."], a: 0}
+        ];
+
+        let html = '';
+        quiz9.forEach((q, i) => {
+            html += `<div class="q-title">${q.q}</div>`;
+            q.o.forEach((opt, j) => {
+                html += `<label><input type="radio" name="q${i}" value="${j}"> ${opt}</label>`;
+            });
+        });
+        document.getElementById('quiz-content').innerHTML = html;
+
+        function chamDiem() {
+            let score = 0;
+            quiz9.forEach((q, i) => {
+                let checked = document.querySelector(`input[name="q${i}"]:checked`);
+                if(checked && parseInt(checked.value) === q.a) score++;
+            });
+            document.getElementById('result').innerText = `Kết quả: ${score} / 15 câu`;
+            window.scrollTo(0, document.body.scrollHeight);
+        }
+    </script>
+</body>
+</html>

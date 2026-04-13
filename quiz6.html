@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8"><title>Quiz 6</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f4f7f6; padding: 20px; }
+        .container { max-width: 800px; background: #fff; margin: auto; padding: 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .q-title { font-size: 18px; font-weight: bold; color: #0056b3; margin: 20px 0 10px 0; line-height: 1.4; }
+        label { display: block; padding: 12px; background: #f8f9fa; margin-bottom: 8px; border-radius: 5px; cursor: pointer; border: 1px solid #dee2e6; line-height: 1.4; }
+        label:hover { background: #e2e6ea; }
+        .submit-btn { background: #28a745; color: white; border: none; padding: 15px; width: 100%; font-size: 18px; border-radius: 5px; cursor: pointer; margin-top: 20px; font-weight: bold; }
+        #result { font-size: 24px; font-weight: bold; color: red; text-align: center; margin-top: 20px; }
+        a { display: block; text-align: center; margin-top: 20px; color: #0056b3; text-decoration: none; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 style="text-align:center; border-bottom: 2px solid #0056b3; padding-bottom: 10px;">ĐỀ THI - QUIZ 6</h2>
+        <div id="quiz-content"></div>
+        <button class="submit-btn" onclick="chamDiem()">NỘP BÀI</button>
+        <div id="result"></div>
+        <a href="menu.html">← Quay lại Menu</a>
+    </div>
+
+    <script>
+        const quiz6 = [
+            {q: "Câu 1: Toàn cầu hóa có những tác động tiêu cực:", o: ["A. Chi phối quá trình toàn cầu hóa tạo nên sự bất bình đẳng trong quan hệ quốc tế; Làm gia tăng sự phân hóa giàu nghèo", "B. Ô nhiễm môi trường, tài nguyên thiên nhiên bị cạn kiệt", "C. Các nước nông nghiệp sẽ bị các nước công nghiệp thao túng", "D. Dân số sẽ gia tăng, nạn đói có nguy cơ sẽ diễn ra khắp nơi"], a: 0},
+            {q: "Câu 2: Điền từ còn thiếu vào chỗ trống: “Tăng cường quốc phòng, giữ vững an ninh quốc gia, trật tự, an toàn xã hội là nhiệm vụ trọng yếu, thường xuyên của….”.", o: ["A. Đảng, Nhà nước và toàn dân", "B. Nhà nước và toàn dân", "C. Mọi tầng lớp nhân dân", "D. Cả hệ thống chính trị"], a: 0},
+            {q: "Câu 3: Mục tiêu, nhiệm vụ đối ngoại, hội nhập kinh tế của Việt Nam trong thời kỳ đổi mới là:", o: ["A. Giữ vững độc lập tự chủ tự cường đi đôi với đa phương hóa da dạng hóa quan hệ đối ngoại", "B. Giữ vững ổn định chính trị xã hội", "C. Lấy việc giữ vững môi trường hòa bình, ổn định; tạo các điều kiện quốc tế thuận lợi cho công cuộc đổi mới... là lợi ích cao nhất của Tổ quốc", "D. Giữ vững môi trường hòa bình, tạo điều kiện quốc tế thuận lợi cho công cuộc đổi mới"], a: 2},
+            {q: "Câu 4: Việt Nam gia nhập diễn đàn hợp tác kinh tế châu Á – Thái Bình Dương (APEC) vào thời gian nào?", o: ["A. Năm 1999", "B. Năm 1998", "C. Năm 2000", "D. Năm 1997"], a: 1},
+            {q: "Câu 5: Một số chủ trương và chính sách lớn về mở rộng quan hệ đối ngoại, hội nhập kinh tế quốc tế:", o: ["A. Chủ động và tích cực hội nhập kinh tế quốc tế theo lộ trình phù hợp", "B. Đưa các quan hệ quốc tế đã được thiết lập đi vào chiều sâu, ổn định, bền vững", "C. Bổ sung và hoàn thiện hệ thống pháp luật và thể chế kinh tế phù hợp...", "D. Tất cả đều đúng"], a: 3},
+            {q: "Câu 6: Định hướng đường lối đối ngoại nhấn mạnh yêu cầu phát triển quan hệ hợp tác, hữu nghị truyền thống với những nước láng giềng nào?", o: ["A. Trung Quốc, Nga, Triều Tiên", "B. Lào, Campuchia, Trung Quốc", "C. Trung Quốc, Nhật Bản, Triều Tiên", "D. Lào, Campuchia, Thái Lan"], a: 1},
+            {q: "Câu 7: Đường lối đối ngoại, hội nhập kinh tế quốc tế thời kì đổi mới bộc lộ những hạn chế:", o: ["A. Tất cả đều đúng", "B. Đội ngũ cán bộ lĩnh vực đối ngoại nhìn chung chưa đáp ứng được nhu cầu...", "C. Chưa hình thành được kế hoạch tổng thể và dài hạn về hội nhập kinh tế quốc tế", "D. Còn lúng túng, bị động, chưa xây dựng quan hệ lợi ích đan xen"], a: 0},
+            {q: "Câu 8: Chủ nghĩa đế quốc và các thế lực thù địch đang âm mưu chống phá Việt Nam bằng chiến lược nào?", o: ["A. Bao vây cấm vận", "B. Dùng vũ lực và đe dọa dùng vũ lực", "C. Chia rẽ khối đại đoàn kết dân tộc", "D. Diễn biến hòa bình và bạo loạn lật đổ"], a: 3},
+            {q: "Câu 9: Cơ sở chính trị - xã hội vững chắc cho quốc phòng và an ninh thì cán bộ, đảng viên và nhân dân phải?", o: ["A. Chấp hành đúng pháp luật", "B. Sẵn sàng tham gia bảo vệ tổ quốc", "C. Tham gia trấn áp phản cách mạng", "D. Vững vàng về chính trị tư tưởng"], a: 3},
+            {q: "Câu 10: Quân đội nhân dân Việt Nam thành lập vào thời gian nào?", o: ["A. Ngày 22 tháng 12 năm 1944", "B. Ngày 19 tháng 12 năm 1944", "C. Ngày 19 tháng 12 năm 1946", "D. Ngày 22 tháng 12 năm 1946"], a: 0},
+            {q: "Câu 11: Quan điểm cơ bản của Đảng về quốc phòng an ninh là?", o: ["A. Xây dựng hệ thống cơ sở vật chất kỹ thuật hiện đại trong quốc phòng và an ninh", "B. Xây dựng quân đội và công an chính quy tinh nhuệ và hiện đại", "C. Xây dựng nền quốc phòng toàn dân và an ninh nhân dân vững mạnh toàn diện", "D. Bảo vệ toàn vẹn lãnh thổ, độc lập chủ quyền quốc gia"], a: 2},
+            {q: "Câu 12: Yêu sách \"Đường Chín đoạn\" hay còn gọi là \"Đường lưỡi bò\" nhằm tuyên bố chủ quyền trái phép trên Biển Đông của nước nào?", o: ["A. Trung Quốc", "B. Philippin", "C. Thái Lan", "D. Đài Loan"], a: 0},
+            {q: "Câu 13: Quốc phòng là gì?", o: ["A. Là các hoạt động nhằm đấu tranh chống lại các thế lực thù địch", "B. Là công cuộc bảo vệ đất nước bằng sức mạnh quân sự", "C. Là công cuộc giữ nước của một quốc gia, gồm tổng thể các hoạt động đối nội và đối ngoại... nhằm giữ vững hoà bình...", "D. Là sứ mệnh của mỗi quốc gia, dân tộc"], a: 2},
+            {q: "Câu 14: Một trong những nhiệm vụ của quốc phòng an ninh hiện nay là?", o: ["A. Làm thất bại mọi âm mưu chống phá của các thế lực thù địch", "B. Chủ động trong quốc phòng và an ninh", "C. Xây dựng một lực lượng quân sự mạnh và hiện đại", "D. Tiêu diệt các thế lực thù địch chống phá nước ta"], a: 0},
+            {q: "Câu 15: Nhiệm vụ bảo vệ tổ quốc hiện nay là?", o: ["A. Bảo vệ vùng lục địa, vùng trời, vùng biển thuộc chủ quyền quốc gia", "B. Bảo vệ Đảng nhà nước, nhân dân và chế độ xã hội chủ nghĩa, an ninh chính trị, kinh tế, tư tưởng", "C. Bảo về thành quả cách mạng và chế độ chính trị xã hội", "D. Bảo vệ toàn vẹn lãnh thổ chống âm mưu diễn biến hòa bình bạo loạn lật đổ"], a: 1}
+        ];
+
+        let html = '';
+        quiz6.forEach((q, i) => {
+            html += `<div class="q-title">${q.q}</div>`;
+            q.o.forEach((opt, j) => {
+                html += `<label><input type="radio" name="q${i}" value="${j}"> ${opt}</label>`;
+            });
+        });
+        document.getElementById('quiz-content').innerHTML = html;
+
+        function chamDiem() {
+            let score = 0;
+            quiz6.forEach((q, i) => {
+                let checked = document.querySelector(`input[name="q${i}"]:checked`);
+                if(checked && parseInt(checked.value) === q.a) score++;
+            });
+            document.getElementById('result').innerText = `Kết quả: ${score} / 15 câu`;
+            window.scrollTo(0, document.body.scrollHeight);
+        }
+    </script>
+</body>
+</html>

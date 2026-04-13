@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8"><title>Quiz 2</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f4f7f6; padding: 20px; }
+        .container { max-width: 800px; background: #fff; margin: auto; padding: 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .q-title { font-size: 18px; font-weight: bold; color: #0056b3; margin: 20px 0 10px 0; }
+        label { display: block; padding: 12px; background: #f8f9fa; margin-bottom: 8px; border-radius: 5px; cursor: pointer; border: 1px solid #dee2e6; }
+        label:hover { background: #e2e6ea; }
+        .submit-btn { background: #28a745; color: white; border: none; padding: 15px; width: 100%; font-size: 18px; border-radius: 5px; cursor: pointer; margin-top: 20px; font-weight: bold; }
+        #result { font-size: 24px; font-weight: bold; color: red; text-align: center; margin-top: 20px; }
+        a { display: block; text-align: center; margin-top: 20px; color: #0056b3; text-decoration: none; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 style="text-align:center; border-bottom: 2px solid #0056b3; padding-bottom: 10px;">ĐỀ THI - QUIZ 2</h2>
+        <div id="quiz-content"></div>
+        <button class="submit-btn" onclick="chamDiem()">NỘP BÀI</button>
+        <div id="result"></div>
+        <a href="menu.html">← Quay lại Menu</a>
+    </div>
+
+    <script>
+        const quiz2 = [
+            {q: "Câu 1: Nhận định sau đây đúng hay sai: Tư tưởng Hồ Chí Minh là bộ phận nền tảng tư tưởng, kim chỉ nam cho hành động của Đảng Cộng sản Việt Nam.", o: ["A. Đúng", "B. Sai"], a: 0},
+            {q: "Câu 2: Chọn cụm từ thích hợp điền vào chỗ trống: \"Văn hóa… cho quốc dân đi.\"", o: ["A. Soi lối.", "B. Dẫn lối.", "C. Soi đường.", "D. Mở đường."], a: 2},
+            {q: "Câu 3: Tư tưởng Hồ Chí Minh có vị trí như thế nào trong hệ thống tư tưởng của Đảng Cộng sản Việt Nam?", o: ["A. Là một bộ phận trong hệ thống tư tưởng của Đảng.", "B. Là bộ phận nền tảng tư tưởng, kim chỉ nam cho hành động của Đảng.", "C. Là bộ phận quan trọng trong hệ thống tư tưởng của Đảng.", "D. Là bộ phận rất quan trọng trong tư tưởng của Đảng."], a: 1},
+            {q: "Câu 4: Theo Hồ Chí Minh, ưu điểm lớn nhất của chủ nghĩa Mác-Lênin là gì?", o: ["A. Phương pháp làm việc biện chứng.", "B. Bản chất khoa học.", "C. Bản chất cách mạng.", "D. Chủ nghĩa nhân đạo chiến đấu."], a: 0},
+            {q: "Câu 5: Sau khi tìm đường cứu nước, lần đầu tiên Bác Hồ về nước vào thời gian nào?", o: ["A. 1945", "B. 1931", "C. 1930", "D. 1941"], a: 3},
+            {q: "Câu 6: Câu: \"…Chủ trương làm tư sản dân quyền cách mạng...\" được trích từ \"Chính cương vắn tắt của Đảng\" đúng hay sai?", o: ["A. Sai", "B. Đúng"], a: 1},
+            {q: "Câu 7: Điền từ: Văn kiện Đại hội XI chỉ rõ: \"Tư tưởng Hồ Chí Minh… cho cuộc đấu tranh của nhân dân ta giành thắng lợi...\"", o: ["A. mở đường/ tài sản tinh thần.", "B. chỉ đường/ tài sản tinh thần.", "C. soi đường/ tài sản tinh thần.", "D. dẫn đường/ tài sản tinh thần."], a: 2},
+            {q: "Câu 8: Theo Hồ Chí Minh, “căn bệnh” nào là “căn bệnh mẹ đẻ ra hàng trăm thứ căn bệnh con nguy hiểm khác”?", o: ["A. Lãng phí .", "B. Quan liêu.", "C. Tham ô.", "D. Chủ nghĩa cá nhân."], a: 3},
+            {q: "Câu 9: \"Tất cả các dân tộc trên thế giới đều sinh ra bình đẳng...\". Câu trên được Hồ Chí Minh nói đến trong văn kiện nào?", o: ["A. Lời kêu gọi toàn quốc kháng chiến.", "B. Bản án chế độ thực dân Pháp.", "C. Tuyên ngôn độc lập.", "D. Đường Kách mệnh."], a: 2},
+            {q: "Câu 10: Bản “Yêu sách của nhân dân Việt Nam” gửi tới Hội Nghị Versailles gồm mấy điểm?", o: ["A. 3 điểm.", "B. 6 điểm.", "C. 9 điểm.", "D. 8 điểm."], a: 3},
+            {q: "Câu 11: Câu \"…Chủ trương làm tư sản dân quyền cách mạng...\" được trích từ bài viết nào?", o: ["A. Đường Kách mệnh.", "B. Cương lĩnh chính trị.", "C. Chương trình của Đảng.", "D. Chính cương vắn tắt của Đảng."], a: 3},
+            {q: "Câu 12: Theo Hồ Chí Minh, để phát huy sức mạnh cá nhân người lao động, cần phải:", o: ["A. Tác động vào nguyện vọng và mong muốn.", "B. Tác động vào sở thích cá nhân.", "C. Tác động vào nhu cầu và lợi ích thiết thân.", "D. Tác động vào động lực chính trị."], a: 2},
+            {q: "Câu 13: Điền vào chỗ trống: \"Làm cách mệnh rồi thì quyền trao cho... chớ để trong tay một bọn ít người\".", o: ["A. dân chúng số nhiều.", "B. giai cấp nông dân.", "C. giai cấp tư sản dân tộc.", "D. giai cấp công nhân."], a: 0},
+            {q: "Câu 14: Điền vào chỗ trống: \"Quan san muôn dặm một nhà… đều là anh em.\"", o: ["A. vàng đen trắng đỏ.", "B. bốn phương vô sản.", "C. tứ hải.", "D. lao động thế giới."], a: 1},
+            {q: "Câu 15: \"Ỷ Pháp cầu tiến bộ chẳng khác nào xin giặc rủ lòng thương\" là câu Nguyễn Ái Quốc nói về chủ trương của Phan Chu Trinh. Đúng hay sai?", o: ["A. Đúng", "B. Sai"], a: 0}
+        ];
+
+        let html = '';
+        quiz2.forEach((q, i) => {
+            html += `<div class="q-title">${q.q}</div>`;
+            q.o.forEach((opt, j) => {
+                html += `<label><input type="radio" name="q${i}" value="${j}"> ${opt}</label>`;
+            });
+        });
+        document.getElementById('quiz-content').innerHTML = html;
+
+        function chamDiem() {
+            let score = 0;
+            quiz2.forEach((q, i) => {
+                let checked = document.querySelector(`input[name="q${i}"]:checked`);
+                if(checked && parseInt(checked.value) === q.a) score++;
+            });
+            document.getElementById('result').innerText = `Kết quả: ${score} / 15 câu`;
+            window.scrollTo(0, document.body.scrollHeight);
+        }
+    </script>
+</body>
+</html>

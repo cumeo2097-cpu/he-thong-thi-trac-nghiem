@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8"><title>Quiz 11</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f4f7f6; padding: 20px; }
+        .container { max-width: 800px; background: #fff; margin: auto; padding: 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .q-title { font-size: 18px; font-weight: bold; color: #0056b3; margin: 20px 0 10px 0; line-height: 1.4; }
+        label { display: block; padding: 12px; background: #f8f9fa; margin-bottom: 8px; border-radius: 5px; cursor: pointer; border: 1px solid #dee2e6; line-height: 1.4; }
+        label:hover { background: #e2e6ea; }
+        .submit-btn { background: #28a745; color: white; border: none; padding: 15px; width: 100%; font-size: 18px; border-radius: 5px; cursor: pointer; margin-top: 20px; font-weight: bold; }
+        #result { font-size: 24px; font-weight: bold; color: red; text-align: center; margin-top: 20px; }
+        a { display: block; text-align: center; margin-top: 20px; color: #0056b3; text-decoration: none; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 style="text-align:center; border-bottom: 2px solid #0056b3; padding-bottom: 10px;">ĐỀ THI - QUIZ 11 (BỔ SUNG 2)</h2>
+        <div id="quiz-content"></div>
+        <button class="submit-btn" onclick="chamDiem()">NỘP BÀI</button>
+        <div id="result"></div>
+        <a href="menu.html">← Quay lại Menu</a>
+    </div>
+
+    <script>
+        const quiz11 = [
+            {q: "Câu 1: Mục tiêu đối ngoại của nước ta là:", o: ["A. Nhằm phát triển đất nước trên mọi lĩnh vực", "B. Nâng cao vị thế trong quan hệ ngoại giao khu vực và quốc tế", "C. Thúc đẩy kinh tế trong nước phát triển", "D. Tất cả đều đúng"], a: 3},
+            {q: "Câu 2: Hành vi nào dưới đây không thể hiện trách nhiệm của công dân trong việc tham gia xây dựng Nhà nước pháp quyền xã hội chủ nghĩa Việt Nam?", o: ["A. Bác D tuyên truyền và vận động mọi người trong khu phố thực hiện tốt pháp luật", "B. Anh C không tố giác tội phạm", "C. H tham gia vào đội dân quân tự vệ của phường", "D. Anh G không vi phạm pháp luật"], a: 1},
+            {q: "Câu 3: Phép biện chứng duy vật bao gồm những nguyên lý, quy luật cơ bản nào?", o: ["A. 2 nguyên lý, 2 quy luật", "B. 3 nguyên lý, 2 quy luật", "C. 2 nguyên lý, 3 quy luật", "D. 3 nguyên lý, 3 quy luật"], a: 2},
+            {q: "Câu 4: Nước ta đứng trước những thách thức gì trong việc mở rộng quan hệ hợp tác quốc tế:", o: ["A. Phân hoá giàu nghèo, dịch bệnh, tội phạm xuyên quốc gia", "B. Chịu sức ép cạnh tranh gay gắt", "C. Những biến động trên thị trường quốc tế tác động đến thị trường trong nước", "D. Tất cả đều đúng"], a: 3},
+            {q: "Câu 5: Việt Nam bình thường hoá quan hệ với Mỹ vào thời gian nào?", o: ["A. Tháng 7 năm 2001", "B. Tháng 7 năm 2000", "C. Tháng 7 năm 1994", "D. Tháng 7 năm 1995"], a: 3},
+            {q: "Câu 6: Hội nhập quốc tế là sự nghiệp của?", o: ["A. Toàn dân và cả hệ thống chính trị", "B. Bộ Ngoại giao", "C. Đảng và Nhà nước", "D. Việt kiều và du học sinh"], a: 0},
+            {q: "Câu 7: Điền vào chỗ trống: Theo Hồ Chí Minh, ………….. mở ra con đường giải phóng cho các dân tộc và cả loài người, mở đầu một thời đại mới trong lịch sử.", o: ["A. Cách mạng Tháng Tám", "B. Cách mạng tư sản Pháp", "C. Cách mạng Tân Hợi", "D. Cách mạng Tháng Mười"], a: 3},
+            {q: "Câu 8: C.Mác và Ph.Ăngghen cho rằng: Cà là người ta quả quyết cho là ………. thì lại hoàn toàn do những cái ……… cấu thành...", o: ["A. tất yếu/ ngẫu nhiên, tất yếu/ ngẫu nhiên", "B. tất yếu/ ngẫu nhiên, ngẫu nhiên/ tất yếu", "C. ngẫu nhiên/ tất yếu, tất yếu/ ngẫu nhiên", "D. ngẫu nhiên/ tất yếu, ngẫu nhiên/ tất yếu"], a: 0},
+            {q: "Câu 9: Điền từ còn thiếu trong câu nói của Chủ tịch Hồ Chí Minh: “...Toàn bộ những sáng tạo và phát minh đó là ……………….”", o: ["A. Văn minh", "B. Văn vật", "C. Văn hiến", "D. Văn hoá"], a: 3},
+            {q: "Câu 10: Chọn trả lời đúng. Theo tư tưởng Hồ Chí Minh, để tranh thủ sự giúp đỡ của các nước xã hội chủ nghĩa trong đấu tranh cách mạng, cần coi trọng nhân tố:", o: ["A. Tự lực cánh sinh, dựa vào sức minh là chính", "B. Dựa vào ngồn lực ngoại sinh là chính", "C. Có đường lối độc lập tự chủ là chính", "D. Dựa vào tất cả các nguồn lực"], a: 0},
+            {q: "Câu 11: Pháp xâm lược Việt Nam, xã hội Việt Nam tồn tại nhiều mâu thuẫn, nhưng nổi lên 02 mâu thuẫn... Nhận định này đúng hay sai?", o: ["A. Đúng", "B. Sai"], a: 0},
+            {q: "Câu 12: Lực lượng cách mạng chủ yếu được xác định trong Cương lĩnh chính trị đầu tiên của Đảng bao gồm:", o: ["A. Công nhân, nông dân và tiểu địa chủ", "B. Công nhân, nông dân, tư sản", "C. Công nhân, nông dân, tiểu tư sản, trí thức", "D. Công nhân, nông dân, tư sản dân tộc"], a: 2},
+            {q: "Câu 13: Điều kiện nào quyết định nhất cho sự xuất hiện của hình thái kinh tế - xã hội cộng sản chủ nghĩa?", o: ["A. Giai cấp công nhân giành được chính quyền", "B. Sự phát triển mạnh mẽ của lực lượng sản xuất dưới chủ nghĩa tư bản", "C. Mâu thuẫn giai cấp trở nên gay gắt", "D. Xây dựng được Đảng Cộng sản"], a: 1},
+            {q: "Câu 14: Nhà nước pháp quyền xã hội chủ nghĩa Việt Nam được thể hiện qua nguyên tắc nào?", o: ["A. Nhà nước của dân, do dân và vì dân", "B. Quản lý mọi mặt của đời sống xã hội bằng pháp luật", "C. Do Đảng Cộng sản Việt Nam lãnh đạo", "D. Cả A, B, C"], a: 3},
+            {q: "Câu 15: Đâu là câu nói phản ánh đúng nội dung cơ bản nhất của Chủ nghĩa Mác-Lênin. Chủ nghĩa Mác-Lênin là gì?", o: ["A. Thế giới quan và phương pháp luận khoa học của các khoa học", "B. Học thuyết do Lênin sáng tạo", "C. Hệ thống quan điểm và học thuyết khoa học của C.Mác, Ph.Ăngghen và sự phát triển V.I Lênin", "D. Học thuyết khoa học về sự nghiệp giải phóng giai cấp vô sản..."], a: 2}
+        ];
+
+        let html = '';
+        quiz11.forEach((q, i) => {
+            html += `<div class="q-title">${q.q}</div>`;
+            q.o.forEach((opt, j) => {
+                html += `<label><input type="radio" name="q${i}" value="${j}"> ${opt}</label>`;
+            });
+        });
+        document.getElementById('quiz-content').innerHTML = html;
+
+        function chamDiem() {
+            let score = 0;
+            quiz11.forEach((q, i) => {
+                let checked = document.querySelector(`input[name="q${i}"]:checked`);
+                if(checked && parseInt(checked.value) === q.a) score++;
+            });
+            document.getElementById('result').innerText = `Kết quả: ${score} / 15 câu`;
+            window.scrollTo(0, document.body.scrollHeight);
+        }
+    </script>
+</body>
+</html>

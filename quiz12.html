@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8"><title>Quiz 12</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f4f7f6; padding: 20px; }
+        .container { max-width: 800px; background: #fff; margin: auto; padding: 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .q-title { font-size: 18px; font-weight: bold; color: #0056b3; margin: 20px 0 10px 0; line-height: 1.4; }
+        label { display: block; padding: 12px; background: #f8f9fa; margin-bottom: 8px; border-radius: 5px; cursor: pointer; border: 1px solid #dee2e6; line-height: 1.4; }
+        label:hover { background: #e2e6ea; }
+        .submit-btn { background: #28a745; color: white; border: none; padding: 15px; width: 100%; font-size: 18px; border-radius: 5px; cursor: pointer; margin-top: 20px; font-weight: bold; }
+        #result { font-size: 24px; font-weight: bold; color: red; text-align: center; margin-top: 20px; }
+        a { display: block; text-align: center; margin-top: 20px; color: #0056b3; text-decoration: none; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 style="text-align:center; border-bottom: 2px solid #0056b3; padding-bottom: 10px;">ĐỀ THI - QUIZ 12 (BỔ SUNG 3)</h2>
+        <div id="quiz-content"></div>
+        <button class="submit-btn" onclick="chamDiem()">NỘP BÀI</button>
+        <div id="result"></div>
+        <a href="menu.html">← Quay lại Menu</a>
+    </div>
+
+    <script>
+        const quiz12 = [
+            {q: "Câu 1: Người lao động tốt là người lao động hội tụ?", o: ["A. Tình yêu thương", "B. Cần – Kiệm", "C. Liêm – Chính", "D. Đức – Tài"], a: 3},
+            {q: "Câu 2: Xây dựng hoàn thiện hệ thống chính sách dảm bảo cung ứng dịch vụ công cộng thiết yếu nhằm?", o: ["A. Đáp ứng nhu cầu phát triển cho đất nước", "B. Đáp ứng nhu cầu và nguyện vọng của mọi tầng lớp nhân dân", "C. Đáp ứng nhu cầu hội nhập khu vực và quốc tế", "D. Đảm bảo tính công bằng và bình đẳng cho mọi người dân"], a: 1},
+            {q: "Câu 3: Đảng Cộng sản Việt Nam ra đời là bước ngoặt vĩ đại của cách mạng Việt Nam vì đã chấm dứt:", o: ["A. Vai trò lãnh đạo của giai cấp tư sản", "B. Hoạt động của Hội Việt Nam cách mạng thanh niên", "C. Thời kỳ khủng hoảng về đường lối và giai cấp lãnh đạo", "D. Vai trò lãnh đạo của giai cấp phong kiến Việt Nam"], a: 2},
+            {q: "Câu 4: Theo Hồ Chí Minh, cách mạng giải phóng dân tộc muốn giành được thắng lợi phải đi theo con đường nào?", o: ["A. Cách mạng tư sản", "B. Cách mạng TBCN", "C. Cách mạng ruộng đất", "D. Cách mạng vô sản"], a: 3},
+            {q: "Câu 5: Sức mạnh để bảo vệ Tổ quốc là?", o: ["A. Sức mạnh của lực lượng chính trị và vũ trang", "B. Của toàn Đảng, toàn dân, toàn quân", "C. Nội lực và ngoại lực", "D. Của khối đại đoàn kết dân tộc, cả hệ thống chính trị"], a: 3},
+            {q: "Câu 6: Nhận định sau đây là đúng hay sai: Tiền tệ có 5 chức năng", o: ["A. Đúng", "B. Sai"], a: 0},
+            {q: "Câu 7: Ngày 18/06/1919, Nguyễn Ái Quốc đã thay mặt những người Việt Nam yêu nước tại Pháp gửi bản yêu sách tới hội nghị nào?", o: ["A. Hội nghị Tehran", "B. Hội nghị Pan", "C. Hội nghị Vécxây", "D. Hội nghị Yalta"], a: 2},
+            {q: "Câu 8: Biết cổ vũ cho những hủ tục lạc hậu, cổ hủ được phát triển là một trong những điều kiện để trở thành công dân tốt. Nhận định này đúng hay sai?", o: ["A. Đúng", "B. Sai"], a: 1},
+            {q: "Câu 9: Sinh ra và lớn lên trong một nước thuộc địa nửa phong kiến... Do đó …………..", o: ["A. Để giữ vững sự lãnh đạo của Đảng, chân lý của thành công trong Đảng là thực hiện dân chủ", "B. Để giữ vững sự lãnh đạo của Đảng... là biết lắng nghe sự phê bình của dân", "C. Để mãi mãi giữ vững sự lãnh đạo của Đảng... phương châm là tiêu diệt tận gốc...", "D. Để giữ vững sự lãnh đạo của Đảng, bí quyết thành công của Đảng chính là luôn giữ vững bản chất giai cấp công nhân..."], a: 3},
+            {q: "Câu 10: Ngày 5/6/1911, đã diễn ra sự kiện quan trọng nào?", o: ["A. Nguyễn Tất Thành ra đi tìm đường cứu nước", "B. Việt Nam Quang phục hội được thành lập", "C. Trường Đông Kinh nghĩa thục thành lập", "D. Phong trào kháng thuế ở Trung Kì bùng nổ"], a: 0},
+            {q: "Câu 11: Hồ Chí Minh đã dùng hình tượng nào dưới đây để chỉ chủ nghĩa tư bản?", o: ["A. Con đỉa hai vòi", "B. Chim đại bàng", "C. Con bạch tuộc", "D. Chim cánh cụt"], a: 0},
+            {q: "Câu 12: Chọn cụm từ thích hợp điền vào chỗ trống: Chủ tịch Hồ Chí Minh nói: “Một dân tộc …. à một dân tộc …..\"", o: ["A. yếu/dốt", "B. dốt/hèn", "C. yếu/hèn", "D. dốt/yếu"], a: 3},
+            {q: "Câu 13: Phẩm chất đạo đức cơ bản của con người Việt Nam trong thời đại mới theo tư tưởng Hồ Chí Minh là", o: ["A. Trung với nước, hiếu với dân. Yêu thương con người", "B. Cần, kiệm, liêm, chính, chí công vô tư", "C. Có tinh thần quốc tế trong sáng", "D. Tất cả các đáp án trên đều đúng"], a: 3},
+            {q: "Câu 14: Sự đoàn kết giữa các dân tộc trong cộng đồng các dân tộc Việt Nam được thể hiện qua hoạt động nào sau đây?", o: ["A. Các lễ hội truyền thống", "B. Công tác giáo dục và đào tạo", "C. Sự hợp tác trong phát triển kinh tế", "D. Tất cả phương án trên"], a: 3},
+            {q: "Câu 15: Ý nào dưới đây không đúng khi nói về quyền và nghĩa vụ cơ bản của công dân?", o: ["A. Không cần phải tôn trọng quyền và nghĩa vụ của người khác. Chỉ cần thực hiện tốt quyền và nghĩa vụ công dân của mình", "B. Các quyền con người, quyền công dân được công nhận, tôn trọng...", "C. Không ai bị phân biệt đối xử trong đời sống chính trị, dân sự, kinh tế...", "D. Mọi người đều bình đẳng trước pháp luật"], a: 0}
+        ];
+
+        let html = '';
+        quiz12.forEach((q, i) => {
+            html += `<div class="q-title">${q.q}</div>`;
+            q.o.forEach((opt, j) => {
+                html += `<label><input type="radio" name="q${i}" value="${j}"> ${opt}</label>`;
+            });
+        });
+        document.getElementById('quiz-content').innerHTML = html;
+
+        function chamDiem() {
+            let score = 0;
+            quiz12.forEach((q, i) => {
+                let checked = document.querySelector(`input[name="q${i}"]:checked`);
+                if(checked && parseInt(checked.value) === q.a) score++;
+            });
+            document.getElementById('result').innerText = `Kết quả: ${score} / 15 câu`;
+            window.scrollTo(0, document.body.scrollHeight);
+        }
+    </script>
+</body>
+</html>

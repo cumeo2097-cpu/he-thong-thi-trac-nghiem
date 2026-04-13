@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8"><title>Quiz 4</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f4f7f6; padding: 20px; }
+        .container { max-width: 800px; background: #fff; margin: auto; padding: 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .q-title { font-size: 18px; font-weight: bold; color: #0056b3; margin: 20px 0 10px 0; line-height: 1.4; }
+        label { display: block; padding: 12px; background: #f8f9fa; margin-bottom: 8px; border-radius: 5px; cursor: pointer; border: 1px solid #dee2e6; line-height: 1.4; }
+        label:hover { background: #e2e6ea; }
+        .submit-btn { background: #28a745; color: white; border: none; padding: 15px; width: 100%; font-size: 18px; border-radius: 5px; cursor: pointer; margin-top: 20px; font-weight: bold; }
+        #result { font-size: 24px; font-weight: bold; color: red; text-align: center; margin-top: 20px; }
+        a { display: block; text-align: center; margin-top: 20px; color: #0056b3; text-decoration: none; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 style="text-align:center; border-bottom: 2px solid #0056b3; padding-bottom: 10px;">ĐỀ THI - QUIZ 4</h2>
+        <div id="quiz-content"></div>
+        <button class="submit-btn" onclick="chamDiem()">NỘP BÀI</button>
+        <div id="result"></div>
+        <a href="menu.html">← Quay lại Menu</a>
+    </div>
+
+    <script>
+        const quiz4 = [
+            {q: "Câu 1: Dân chủ xã hội chủ nghĩa là ….của chế độ ta, vừa là mục tiêu, vừa là động lực của sự phát triển của đất nước.", o: ["A. Trọng tâm", "B. Đường lối", "C. Bản chất", "D. Nền tảng"], a: 2},
+            {q: "Câu 2: Tăng cường quốc phòng, giữ vững an ninh quốc gia, trật tự, an toàn xã hội là nhiệm vụ….của Đảng, nhà nước và toàn dân", o: ["A. Nhiệm vụ trọng yếu, thường xuyên", "B. Nhiệm vụ quan trọng, then chốt", "C. Nhiệm vụ thường xuyên, liên tục", "D. Nhiệm vụ trọng yếu, then chốt"], a: 0},
+            {q: "Câu 3: Xây dựng con người Việt Nam giàu lòng yêu nước, có ý thức làm chủ và trách nhiệm công dân; có tri thức, sức khỏe, lao động giỏi; có văn hóa, nghĩa tình; có tinh thần quốc tế chân chính, đúng hay sai?", o: ["A. Sai", "B. Đúng"], a: 1},
+            {q: "Câu 4: Đâu là định nghĩa đúng và đầy đủ về dân chủ?", o: ["A. Dân chủ là giá trị phản ánh quyền cơ bản của con người; là kết quả của sự nghiệp đấu tranh...", "B. Dân chủ là một thái tổ chức nhà nước thừa nhận quyền làm chủ của nhân dân", "C. Dân chủ là một giá trị phản ánh những quyền cơ bản của con người; là một phạm trù chính trị gắn với hình thức tổ chức nhà nước...", "D. Dân chủ là một giá trị xã hội phản ánh sự nghiệp đấu tranh của con người..."], a: 2},
+            {q: "Câu 5: \"Thực hiện đường lối đối ngoại độc lập, tự chủ, hòa bình, hữu nghị, hợp tác và phát triển; chủ động và tích cực hội nhập quốc tế\" là một trong tám đặc trưng xây dựng CNXH ở Việt Nam", o: ["A. Sai", "B. Đúng"], a: 1},
+            {q: "Câu 6: Nhà nước pháp quyền xã hội chủ nghĩa là nhà nước?", o: ["A. Nhà nước tự do, dân chủ, công bằng", "B. Nhà nước do nhân dân lập nên", "C. Nhà nước của nhân dân, do nhân dân, vì nhân dân", "D. Nhà nước Việt Nam dân chủ cộng hòa"], a: 2},
+            {q: "Câu 7: Điền vào chố trống: \"…..là trung tâm của chiến lược phát triển, đồng thời là chủ thể phát triển\"", o: ["A. Chủ nghĩa xã hội", "B. Kinh tế thị trường", "C. Nhà nước pháp quyền", "D. Con người"], a: 3},
+            {q: "Câu 8: Đoàn kết các dân tộc có vị trí…..., lâu dài trong sự nghiệp cách mạng Việt Nam; là nguồn sức mạnh, động lực chủ yếu và là nhân tố bền vững có ý nghĩa quyết định", o: ["A. quan trọng", "B. ưu tiên hàng đầu", "C. chiến lược cơ bản", "D. then chốt"], a: 2},
+            {q: "Câu 9: Đâu là bản chất kinh tế của nền dân chủ XHCN?", o: ["A. Kinh tế nhiều thành phần", "B. Quyền lực chính trị thuộc về nhân dân", "C. Chế độ tư hữu giữ vai trò chủ đạo", "D. Chế độ sở hữu về những tư liệu sản xuất chủ yếu của toàn xã hội..."], a: 3},
+            {q: "Câu 10: Đặc điểm kinh tế của thời kỳ quá độ lên chủ nghĩa xã hội là gì?", o: ["A. Kinh tế nhiều thành phần trong đó có thành phần đối lập", "B. Kinh tế thị trường", "C. Kinh tế kế hoạch hóa, tập trung", "D. Kinh tế nông dân gia trưởng"], a: 0},
+            {q: "Câu 11: Khối đại đoàn kết toàn dân tộc dựa trên nền tảng?", o: ["A. Liên minh giai cấp công nhân và đội ngũ trí thức dưới sự lãnh đạo của Đảng", "B. Liên minh giai cấp công nhân, giai cấp nông dân và đội ngũ trí thức dưới sự lãnh đạo của Đảng", "C. Liên minh các dân tộc dưới sự lãnh đạo của Đảng", "D. Liên minh giai cấp công nhân và gia cấp nông dân dưới sự lãnh đạo của Đảng"], a: 1},
+            {q: "Câu 12: Để đảm đương vai trò lãnh đạo, Đảng phải vững mạnh về chính trị, tư tưởng và tổ chức, thường xuyên tự đổi mới, tự chỉnh đốn... đúng hay sai", o: ["A. Đúng", "B. Sai"], a: 0},
+            {q: "Câu 13: Đâu là quan niệm đúng và đầy đủ về nhà nước XHCN?", o: ["A. Nhà nước XHCN là nhà nước mà ở đó, sự thống trị chính trị thuộc về giai cấp công nhân, do cách mạng XHCN sản sinh ra...", "B. Nhà nước XHCN là nhà nước dựa trên nền tảng của khối liên minh công – nông – trí thức", "C. Nhà nước XHCN là nhà nước của giai cấp công nhân và nhân dân lao động...", "D. Nhà nước XHCN là nhà nước pháp quyền, dựa trên cơ sở của pháp luật..."], a: 0},
+            {q: "Câu 14: Con người là trung tâm của chiến lược phát triển, đồng thời là chủ thể phát triển, đúng hay sai?", o: ["A. Đúng", "B. Sai"], a: 0},
+            {q: "Câu 15: Đâu là một trong những đặc trưng cơ bản của chủ nghĩa xã hội theo quan điểm của chủ nghĩa Mác – Lênin?", o: ["A. Chủ nghĩa xã hội có nền kinh tế phát triển cao dựa trên lực lượng sản xuất hiện đại và chế độ công hữu về tư liệu sản xuất", "B. Chủ nghĩa xã hội gắn với nhà nước pháp quyền", "C. Nền kinh tế thị trường định hướng xã hội chủ nghĩa", "D. Chủ nghĩa xã hội gắn với khoa học công nghệ hiện đại"], a: 0}
+        ];
+
+        let html = '';
+        quiz4.forEach((q, i) => {
+            html += `<div class="q-title">${q.q}</div>`;
+            q.o.forEach((opt, j) => {
+                html += `<label><input type="radio" name="q${i}" value="${j}"> ${opt}</label>`;
+            });
+        });
+        document.getElementById('quiz-content').innerHTML = html;
+
+        function chamDiem() {
+            let score = 0;
+            quiz4.forEach((q, i) => {
+                let checked = document.querySelector(`input[name="q${i}"]:checked`);
+                if(checked && parseInt(checked.value) === q.a) score++;
+            });
+            document.getElementById('result').innerText = `Kết quả: ${score} / 15 câu`;
+            window.scrollTo(0, document.body.scrollHeight);
+        }
+    </script>
+</body>
+</html>

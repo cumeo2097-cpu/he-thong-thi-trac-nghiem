@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8"><title>Quiz 5</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f4f7f6; padding: 20px; }
+        .container { max-width: 800px; background: #fff; margin: auto; padding: 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .q-title { font-size: 18px; font-weight: bold; color: #0056b3; margin: 20px 0 10px 0; line-height: 1.4; }
+        label { display: block; padding: 12px; background: #f8f9fa; margin-bottom: 8px; border-radius: 5px; cursor: pointer; border: 1px solid #dee2e6; line-height: 1.4; }
+        label:hover { background: #e2e6ea; }
+        .submit-btn { background: #28a745; color: white; border: none; padding: 15px; width: 100%; font-size: 18px; border-radius: 5px; cursor: pointer; margin-top: 20px; font-weight: bold; }
+        #result { font-size: 24px; font-weight: bold; color: red; text-align: center; margin-top: 20px; }
+        a { display: block; text-align: center; margin-top: 20px; color: #0056b3; text-decoration: none; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 style="text-align:center; border-bottom: 2px solid #0056b3; padding-bottom: 10px;">ĐỀ THI - QUIZ 5</h2>
+        <div id="quiz-content"></div>
+        <button class="submit-btn" onclick="chamDiem()">NỘP BÀI</button>
+        <div id="result"></div>
+        <a href="menu.html">← Quay lại Menu</a>
+    </div>
+
+    <script>
+        const quiz5 = [
+            {q: "Câu 1: Một trong những đặc trưng của chủ nghĩa xã hội là “Có nền văn hóa…, đậm đà bản sắc dân tộc”. Điền từ còn thiếu vào chổ trống?", o: ["A. Tiến bộ", "B. Tiên tiến", "C. Cổ truyền", "D. Phát triển"], a: 1},
+            {q: "Câu 2: Đảng và nhà nước ta coi chính sách dân số là?", o: ["A. Quốc sách", "B. Then chốt", "C. Quan trọng", "D. Thiết yếu"], a: 0},
+            {q: "Câu 3: Đặc điểm lớn nhất của nước ta trong thời kỳ quá độ là gì?", o: ["A. Từ một nước nông nghiệp lạc hậu tiến thẳng lên chủ nghĩa xã hội, không qua giai đoạn tư bản chủ nghĩa", "B. Chưa thực hiện tốt việc kết hợp tăng trưởng kinh tế với công bằng xã hội...", "C. Thực hiện quá trình công nghiệp hóa, hiện đại hóa đất nước", "D. Chế độ chính trị, kinh tế, xã hội ổn định, quốc phòng an ninh được giữ vững..."], a: 0},
+            {q: "Câu 4: Sở hữu toàn dân về tư liệu sản xuất còn được gọi sở hữu nhà nước?", o: ["A. Sai", "B. Đúng"], a: 1},
+            {q: "Câu 5: Xây dựng và phát triển văn hóa là sự nghiệp của Toàn dân do Đảng lãnh đạo?", o: ["A. Sai", "B. Đúng"], a: 1},
+            {q: "Câu 6: Thành phần kinh tế Nhà nước giữ vai trò chủ đạo ở nước ta. Đúng hay Sai?", o: ["A. Đúng", "B. Sai"], a: 0},
+            {q: "Câu 7: Nền văn hóa Việt Nam được hình thành trên cở sở đặc trưng văn hóa tổng hợp các dân tộc Việt Nam nên có tính chất Tổng hợp và đa dạng? Nhận định này đúng hay sai?", o: ["A. Sai", "B. Đúng"], a: 1},
+            {q: "Câu 8: Đường lối xây dựng và phát triển văn hóa của Đảng hiện nay là: Đa dạng hóa về bản sắc, phát triển các giá trị văn hóa truyền thống. Nhận định trên đúng hay sai?", o: ["A. Đúng", "B. Sai"], a: 1},
+            {q: "Câu 9: Sở hữu tư nhân về tư liệu sản xuất ở nước ta được biểu hiện dưới hình thức?", o: ["A. Tất cả các đáp án đều đúng", "B. Hợp tác xã, tư bản tư nhân, cá thể, tiểu chủ", "C. Vốn đầu tư nước ngoài, tư bản nhà nước", "D. Cá thể, tiểu chủ, tư bản tư nhân, hộ gia đình"], a: 3},
+            {q: "Câu 10: \"Kết hợp mục tiêu kinh tế với mục tiêu xã hội được tiến hành trên phạm vi cả nước, ở từng lĩnh vực, từng địa phương\". Nhận định trên đúng hay sai?", o: ["A. Đúng", "B. Sai"], a: 0},
+            {q: "Câu 11: Những nguy cơ, thách thức như: Tụt hậu về kinh tế, chệch hướng về chủ nghĩa xã hội, nạn tham nhũng và quan liêu, “diễn biến hòa bình”… được Đảng ta nhận định trong Văn kiện?", o: ["A. Văn kiện Đại hội VIII", "B. Văn kiện Đại hội IX", "C. Văn kiện Đại hội VII", "D. Văn kiện Đại hội X"], a: 2},
+            {q: "Câu 12: Nền kinh tế hàng hóa nhiều thành phần vận hành theo cơ chế thị trường định hướng xã hội chủ nghĩa ở nước ta có vai trò như thế nào đối với sự phát triển kinh tế - xã hội?", o: ["A. Phát triển lực lượng sản xuất, tăng năng suất lao động và hiệu quả kinh tế", "B. Cho phép khai thác, sử dụng có hiệu quả các nguồn lực", "C. Nâng cao đời sống vật chất và tinh thần cho người lao động", "D. Tất cả các đáp án đều đúng"], a: 3},
+            {q: "Câu 13: Theo Hồ Chí Minh, văn hóa có 6 chức năng cơ bản?", o: ["A. Sai", "B. Đúng"], a: 0},
+            {q: "Câu 14: Vấn đề “Tam nông” là Nông nghiệp, nông sản, nông dân?", o: ["A. Sai", "B. Đúng"], a: 0},
+            {q: "Câu 15: Chủ trương phát triển hệ thống y tế công bằng và hiệu quả là hướng đến?", o: ["A. Đảm bảo về đội ngũ y, bác sỹ được đào tạo chuyên nghiệp trong và ngoài nươc", "B. Đảm bảo mọi người dân được chăm sóc và bảo vệ sức khỏe", "C. Đảm bảo xây dưng một hệ thống cơ sở vật chất về y tế hiện đại", "D. Đảm bảo tính xã hội hóa trong dịch vụ y tế hiện hành"], a: 1}
+        ];
+
+        let html = '';
+        quiz5.forEach((q, i) => {
+            html += `<div class="q-title">${q.q}</div>`;
+            q.o.forEach((opt, j) => {
+                html += `<label><input type="radio" name="q${i}" value="${j}"> ${opt}</label>`;
+            });
+        });
+        document.getElementById('quiz-content').innerHTML = html;
+
+        function chamDiem() {
+            let score = 0;
+            quiz5.forEach((q, i) => {
+                let checked = document.querySelector(`input[name="q${i}"]:checked`);
+                if(checked && parseInt(checked.value) === q.a) score++;
+            });
+            document.getElementById('result').innerText = `Kết quả: ${score} / 15 câu`;
+            window.scrollTo(0, document.body.scrollHeight);
+        }
+    </script>
+</body>
+</html>

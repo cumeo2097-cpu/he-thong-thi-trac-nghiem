@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8"><title>Quiz 7</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f4f7f6; padding: 20px; }
+        .container { max-width: 800px; background: #fff; margin: auto; padding: 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .q-title { font-size: 18px; font-weight: bold; color: #0056b3; margin: 20px 0 10px 0; line-height: 1.4; }
+        label { display: block; padding: 12px; background: #f8f9fa; margin-bottom: 8px; border-radius: 5px; cursor: pointer; border: 1px solid #dee2e6; line-height: 1.4; }
+        label:hover { background: #e2e6ea; }
+        .submit-btn { background: #28a745; color: white; border: none; padding: 15px; width: 100%; font-size: 18px; border-radius: 5px; cursor: pointer; margin-top: 20px; font-weight: bold; }
+        #result { font-size: 24px; font-weight: bold; color: red; text-align: center; margin-top: 20px; }
+        a { display: block; text-align: center; margin-top: 20px; color: #0056b3; text-decoration: none; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 style="text-align:center; border-bottom: 2px solid #0056b3; padding-bottom: 10px;">ĐỀ THI - QUIZ 7</h2>
+        <div id="quiz-content"></div>
+        <button class="submit-btn" onclick="chamDiem()">NỘP BÀI</button>
+        <div id="result"></div>
+        <a href="menu.html">← Quay lại Menu</a>
+    </div>
+
+    <script>
+        const quiz7 = [
+            {q: "Câu 1: Theo hiến pháp 2013, Nhà nước Cộng hoà xã hội chủ nghĩa Việt Nam gồm có bao nhiêu đặc trưng?", o: ["A. 3", "B. 4", "C. 2", "D. 5"], a: 3},
+            {q: "Câu 2: Đảng ta xác định xây dựng nhà nước pháp quyền xã hội chủ nghĩa có bao nhiêu đặc trưng?", o: ["A. 4", "B. 6", "C. 7", "D. 5"], a: 1},
+            {q: "Câu 3: Khi phát hiện một hành vi tham ô, tham nhũng... Em sẽ làm gì cho phù hợp với trách nhiệm của công dân?", o: ["A. Viết đơn tố cáo gửi đến cơ quan có thẩm quyền.", "B. Lờ đi xem như không biết gì.", "C. Đưa sự việc này lên Facebook.", "D. Trao đổi với bạn bè về hành vi này."], a: 0},
+            {q: "Câu 4: Công cụ chủ yếu để nhân dân thực hiện quyền làm chủ của mình là gì?", o: ["A. Công an", "B. Tòa án", "C. Quốc hội", "D. Nhà nước"], a: 3},
+            {q: "Câu 5: Điền từ còn thiếu: “Nhà nước Cộng hòa xã hội chủ nghĩa Việt Nam là nhà nước ... của Nhân dân, do Nhân dân, vì Nhân dân”?", o: ["A. Xã hội chủ nghĩa", "B. Chủ nghĩa xã hội", "C. Độc lập", "D. Pháp quyền xã hội chủ nghĩa"], a: 3},
+            {q: "Câu 6: Nội dung sau đây nói về vấn đề gì: “Thực hiện nhất quán đường lối đối ngoại độc lập, tự chủ, hòa bình, hợp tác và phát triển...”?", o: ["A. Quan điểm của Đảng", "B. Nghị quyết Đại hội IX", "C. Quan điểm đối nội", "D. Quan điểm đối ngoại"], a: 3},
+            {q: "Câu 7: Công cụ nào dưới đây là hữu hiệu nhất để Nhà nước quản lí xã hội?", o: ["A. Chủ trương", "B. Chính sách", "C. Pháp luật", "D. Kế hoạch"], a: 2},
+            {q: "Câu 8: Một trong những đặc điểm của Nhà nước pháp quyền xã hội chủ nghĩa là gì?", o: ["A. Nhà nước hoạt động theo ý chí của giai cấp", "B. Nhà nước của dân, do dân và vì dân", "C. Nhà nước của giai cấp thống trị", "D. Nhà nước hoạt động không theo hiến pháp và pháp luật"], a: 1},
+            {q: "Câu 9: Mặt trận tổ quốc Việt Nam có vai trò như thế nào trong xây dựng nhà nước pháp quyền xã hội chủ nghĩa?", o: ["A. Phản biện xã hội", "B. Định hướng", "C. Tham mưu", "D. Điều chỉnh"], a: 0},
+            {q: "Câu 10: Khi bàn về trách nhiệm của công dân trong việc tham gia xây dựng và bảo vệ Nhà nước pháp quyền... Em sẽ lựa chọn ý kiến nào?", o: ["A. Đây là nhiệm vụ của cơ quan nhà nước.", "B. Đây là quyền và nghĩa vụ của công dân.", "C. Chỉ có cán bộ Nhà nước mới có trách nhiệm.", "D. Đây là trách nhiệm của mọi công dân Việt nam."], a: 3},
+            {q: "Câu 11: Nội dung nào thể hiện chức năng của Nhà nước pháp quyền xã hội chủ nghĩa Việt Nam?", o: ["A. Đảm bảo an ninh chính trị và trật tự, an toàn xã hội", "B. Thực hiện đại đoàn kết dân tộc", "C. Thực hiện đoàn kết toàn dân", "D. Để nhân dân thực hiện quyền làm chủ của mình"], a: 0},
+            {q: "Câu 12: Đảng ta xác định tất cả quyền lực Nhà nước thuộc về ai?", o: ["A. Cán bộ lãnh đạo", "B. Nhân dân", "C. Đội ngũ tri thức", "D. Đảng viên"], a: 1},
+            {q: "Câu 13: Lần đầu tiên thuật ngữ xây dựng nhà nước pháp quyền được đề cập tại Hội nghị Trung ương 2 khóa VII năm nào?", o: ["A. Năm 1990", "B. Năm 1993", "C. Năm 1991", "D. Năm 1992"], a: 2},
+            {q: "Câu 14: Nhà nước thể hiện ý chí, lợi ích và nguyện vọng của nhân dân là nói đến đặc điểm nào dưới đây?", o: ["A. Tính giai cấp", "B. Tính nhân dân", "C. Tính lợi ích", "D. Tính xã hội"], a: 1},
+            {q: "Câu 15: Sự lãnh đạo của Đảng Cộng sản đối với nhà nước ta thể hiện nhà nước ta mang bản chất của giai cấp nào?", o: ["A. Giai cấp thống trị", "B. Giai cấp công nhân", "C. Giai cấp nông dân", "D. Giai cấp bị trị"], a: 1}
+        ];
+
+        let html = '';
+        quiz7.forEach((q, i) => {
+            html += `<div class="q-title">${q.q}</div>`;
+            q.o.forEach((opt, j) => {
+                html += `<label><input type="radio" name="q${i}" value="${j}"> ${opt}</label>`;
+            });
+        });
+        document.getElementById('quiz-content').innerHTML = html;
+
+        function chamDiem() {
+            let score = 0;
+            quiz7.forEach((q, i) => {
+                let checked = document.querySelector(`input[name="q${i}"]:checked`);
+                if(checked && parseInt(checked.value) === q.a) score++;
+            });
+            document.getElementById('result').innerText = `Kết quả: ${score} / 15 câu`;
+            window.scrollTo(0, document.body.scrollHeight);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8"><title>Quiz 3</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f4f7f6; padding: 20px; }
+        .container { max-width: 800px; background: #fff; margin: auto; padding: 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .q-title { font-size: 18px; font-weight: bold; color: #0056b3; margin: 20px 0 10px 0; }
+        label { display: block; padding: 12px; background: #f8f9fa; margin-bottom: 8px; border-radius: 5px; cursor: pointer; border: 1px solid #dee2e6; }
+        label:hover { background: #e2e6ea; }
+        .submit-btn { background: #28a745; color: white; border: none; padding: 15px; width: 100%; font-size: 18px; border-radius: 5px; cursor: pointer; margin-top: 20px; font-weight: bold; }
+        #result { font-size: 24px; font-weight: bold; color: red; text-align: center; margin-top: 20px; }
+        a { display: block; text-align: center; margin-top: 20px; color: #0056b3; text-decoration: none; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 style="text-align:center; border-bottom: 2px solid #0056b3; padding-bottom: 10px;">ĐỀ THI - QUIZ 3</h2>
+        <div id="quiz-content"></div>
+        <button class="submit-btn" onclick="chamDiem()">NỘP BÀI</button>
+        <div id="result"></div>
+        <a href="menu.html">← Quay lại Menu</a>
+    </div>
+
+    <script>
+        const quiz3 = [
+            {q: "Câu 1: Hiệp ước nào đánh dấu sự đầu hàng hoàn toàn của triều đình phong kiến nhà Nguyễn trước thế lực xâm lăng?", o: ["A. Pa-tơ-nốt", "B. Giáp Tuất", "C. Hắc-măng", "D. Nhâm Tuất"], a: 0},
+            {q: "Câu 2: Sự thất bại của phong trào yêu nước nào đã chứng tỏ độc lập dân tộc không gắn liền với chế độ phong kiến?", o: ["A. Cuộc đấu tranh của đồng bào dân tộc thiểu số", "B. Khởi nghĩa Thái Nguyên", "C. Phong trào Cần Vương", "D. Phong trào nông dân Yên Thế"], a: 2},
+            {q: "Câu 3: Tác phẩm ghi lại những bài giảng của Nguyễn Ái Quốc tại Quảng Châu có tên gọi là gì?", o: ["A. Yêu sách về dân tộc", "B. Sơ thảo luận cương của Lenin", "C. Đường Kách Mệnh", "D. Nhật ký trong tù"], a: 2},
+            {q: "Câu 4: Duyên cớ để liên quân Pháp- Tây Ban Nha nổ súng xâm lược Việt Nam ngày 1-9-1858 là", o: ["A. Chính sách cấm đạo, giết đạo của nhà Nguyễn", "B. Nhu cầu về thị trường, nguyên liệu, nhân công", "C. Triều đình Nguyễn từ chối nhận quốc thư", "D. Triều đình Nguyễn không cho thương nhân châu Âu đến buôn bán"], a: 0},
+            {q: "Câu 5: Tổng Bí thư đầu tiên của Đảng Cộng sản Việt Nam là ai?", o: ["A. Nguyễn Ái Quốc", "B. Hoàng Quốc Việt", "C. Trần Phú", "D. Nguyễn Phong Sắc"], a: 2},
+            {q: "Câu 6: “Dù màu da có khác nhau, trên đời này chỉ có hai giống người: Giống người bóc lột và giống người bị bóc lột”. Đây là nhận định của ai?", o: ["A. Phan Châu Trinh", "B. Trần Phú", "C. Phan Bội Châu", "D. Nguyễn Tất Thành"], a: 3},
+            {q: "Câu 7: Từ chính sách ngoại giao sai lầm của nhà Nguyễn, Việt Nam rút ra bài học gì trong công cuộc đổi mới hiện nay?", o: ["A. Đổi mới phát triển kinh tế gắn với mở cửa, tăng cường hợp tác.", "B. Cải cách toàn diện triệt để.", "C. Tự do tôn giáo.", "D. Mở cửa cải cách, tự do tín ngưỡng."], a: 0},
+            {q: "Câu 8: Cương lĩnh chính trị đầu tiên của Đảng chủ trương thực hiện các cuộc cách mạng tư sản dân quyền cách mạng, thổ địa cách mạng, cách mạng xã hội chủ nghĩa đúng hay sai?", o: ["A. Sai", "B. Đúng"], a: 0},
+            {q: "Câu 9: Hội Nghị thành lập Đảng được diễn ra tại đâu?", o: ["A. Nghệ An", "B. Hương Cảng - Trung Quốc", "C. Hà Nội", "D. Cao Bằng"], a: 1},
+            {q: "Câu 10: Cách mạng tháng Tám năm 1945 là kết quả của bao nhiêu năm đấu tranh anh dũng?", o: ["A. 20 năm", "B. 5 năm", "C. 15 năm", "D. 10 năm"], a: 2},
+            {q: "Câu 11: Kẻ thù chính của dân tộc ta trong giai đoạn 1858 - 1954 không phải là Pháp đúng hay sai?", o: ["A. Đúng", "B. Sai"], a: 1},
+            {q: "Câu 12: Nguyễn Tất Thành ra đi tìm đường cứu nước vào lúc chủ nghĩa tư bản đang tồn tại như thế nào?", o: ["A. Còn non trẻ", "B. Đoàn kết", "C. Đã trở thành chủ nghĩa đế quốc", "D. Vừa lật đổ chế độ phong kiến"], a: 2},
+            {q: "Câu 13: Hiệp định Giơ-ne-ve dẫn đến chấm dứt sự hiện diện của quân đội Pháp được ký kết vào năm?", o: ["A. 1975", "B. 1945", "C. 1954", "D. 1946"], a: 2},
+            {q: "Câu 14: Dân tộc ta lập nên nước Việt Nam dân chủ cộng hòa thông qua sự kiện nào", o: ["A. Phong trào 1939-1941", "B. Phong trào cách mạng 1930-1931", "C. Cách mạng Tháng Tám1945", "D. Phong trào dân chủ 1936-1939"], a: 2},
+            {q: "Câu 15: Chánh cương vắn tắt, sách lược vắn tắt được thông qua tại hội nghị nào?", o: ["A. Hội nghị Diên Hồng", "B. Hội nghị Giơ-ne-vơ", "C. Hội nghị hợp nhất các tổ chức cộng sản", "D. Hội nghị Ianta"], a: 2}
+        ];
+
+        let html = '';
+        quiz3.forEach((q, i) => {
+            html += `<div class="q-title">${q.q}</div>`;
+            q.o.forEach((opt, j) => {
+                html += `<label><input type="radio" name="q${i}" value="${j}"> ${opt}</label>`;
+            });
+        });
+        document.getElementById('quiz-content').innerHTML = html;
+
+        function chamDiem() {
+            let score = 0;
+            quiz3.forEach((q, i) => {
+                let checked = document.querySelector(`input[name="q${i}"]:checked`);
+                if(checked && parseInt(checked.value) === q.a) score++;
+            });
+            document.getElementById('result').innerText = `Kết quả: ${score} / 15 câu`;
+            window.scrollTo(0, document.body.scrollHeight);
+        }
+    </script>
+</body>
+</html>
